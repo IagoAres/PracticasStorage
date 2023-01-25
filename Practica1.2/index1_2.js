@@ -8,28 +8,33 @@ window.onload = function () {
         console.log("funciona el local storage");
     }
     document.getElementById("guardar").addEventListener("click", function () {
-        localStorage.setItem(document.getElementById("peliculas").value,document.getElementById("peliculas").value);
+        var usuario = {
+            "usuario":document.getElementById("usuario").value,
+            "contraseña":document.getElementById("contraseña").value
+        };
+        localStorage.setItem("usuario",JSON.stringify(usuario));
         console.log({ ...localStorage });
         adminLista();
     })
 
-    document.getElementById("borrar").addEventListener("click", function () {
+    /*document.getElementById("borrar").addEventListener("click", function () {
         localStorage.removeItem(document.getElementById("peliborrar").value);
         console.log({ ...localStorage });
         adminLista();
-    })
+    })*/
     console.log({ ...localStorage });
     adminLista();
 }
 
 function adminLista() {
+    var li="";
+    li = document.createElement("li");
     document.querySelectorAll("li").forEach(e => {
-            ul.removeChild(e);
+        ul.removeChild(e);
     });
 
-    Object.keys(localStorage).forEach(function (key) {
-        var li = document.createElement("li");
-        li.appendChild(document.createTextNode(key));
+    Object.values(localStorage).forEach(function (key) {
+        li.appendChild(document.createTextNode(":"+key));
         ul.appendChild(li);
     });
 }
