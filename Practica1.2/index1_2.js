@@ -1,20 +1,34 @@
 'use STRICT'
 var ul = document.getElementById("lista");
+let usuario = "";
 window.onload = function () {
     //localStorage.clear();
+    var counter = 0;
+    if (localStorage.length > 0) {
+        counter = localStorage.length;
+    }
+    console.log(counter);
+
     if (typeof (Storage) !== "undefined") {
         console.log("funciona el local storage");
     } else {
-        console.log("funciona el local storage");
+        console.log("no funciona el local storage");
     }
+
     document.getElementById("guardar").addEventListener("click", function () {
-        var usuario = {
-            "usuario":document.getElementById("usuario").value,
-            "contraseña":document.getElementById("contraseña").value
+        usuario = {
+            id: counter,
+            usuario: document.getElementById("usuario").value,
+            contraseña: document.getElementById("contraseña").value,
+            string:function(){
+                var arraydata = [id,usuario,contraseña];
+                return arraydata;
+            }
         };
-        localStorage.setItem("usuario",JSON.stringify(usuario));
+        localStorage.setItem(counter, JSON.stringify(usuario));
         console.log({ ...localStorage });
         adminLista();
+        counter = localStorage.length;
     })
 
     /*document.getElementById("borrar").addEventListener("click", function () {
@@ -27,14 +41,16 @@ window.onload = function () {
 }
 
 function adminLista() {
-    var li="";
-    li = document.createElement("li");
     document.querySelectorAll("li").forEach(e => {
         ul.removeChild(e);
     });
+    for (i = 0; i < localStorage.length; i++) {
+        console.log(JSON.parse(localStorage.getItem(i)));
 
-    Object.values(localStorage).forEach(function (key) {
-        li.appendChild(document.createTextNode(":"+key));
+        var li = document.createElement("li").appendChild(document.createTextNode(JSON.parse(localStorage.getItem(i))));
         ul.appendChild(li);
-    });
+    }
+
+
+
 }
