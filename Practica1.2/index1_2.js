@@ -41,14 +41,15 @@ window.onload = function () {
 }
 
 function adminLista() {
+    var li = document.createElement("li")
     document.querySelectorAll("li").forEach(e => {
         ul.removeChild(e);
     });
     for (i = 0; i < localStorage.length; i++) {
         console.log(JSON.parse(localStorage.getItem(i)));
-
-        var li = document.createElement("li").appendChild(document.createTextNode(JSON.parse(localStorage.getItem(i))));
+        li.appendChild(document.createTextNode(localStorage.getItem(i)));
         ul.appendChild(li);
+        li =document.createElement("li");
     }
 
 
