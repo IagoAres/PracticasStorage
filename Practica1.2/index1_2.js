@@ -9,10 +9,8 @@ window.onload = function () {
     }
     console.log(counter);
 
-    if (typeof (Storage) !== "undefined") {
-        console.log("funciona el local storage");
-    } else {
-        console.log("no funciona el local storage");
+    if (typeof (Storage) == "undefined") {
+        alert.log("no funciona el local storage");
     }
 
     document.getElementById("guardar").addEventListener("click", function () {
@@ -20,11 +18,12 @@ window.onload = function () {
             id: counter,
             usuario: document.getElementById("usuario").value,
             contraseña: document.getElementById("contraseña").value,
-            string:function(){
-                var arraydata = [id,usuario,contraseña];
+            string: function () {
+                var arraydata = [id, usuario, contraseña];
                 return arraydata;
             }
         };
+        console.log(usuario);
         localStorage.setItem(counter, JSON.stringify(usuario));
         console.log({ ...localStorage });
         adminLista();
@@ -46,12 +45,15 @@ function adminLista() {
         ul.removeChild(e);
     });
     for (i = 0; i < localStorage.length; i++) {
-        console.log(JSON.parse(localStorage.getItem(i)));
-        li.appendChild(document.createTextNode(localStorage.getItem(i)));
-        ul.appendChild(li);
-        li =document.createElement("li");
+
+        var texto = JSON.parse(localStorage.getItem(i));
+        console.log(texto);
+        for (var x in texto) {
+            li.appendChild(document.createTextNode(x + ": "));
+            li.appendChild(document.createTextNode(texto[x] + ": "));
+            ul.appendChild(li);
+
+        }
+        li = document.createElement("li");
     }
-
-
-
 }
