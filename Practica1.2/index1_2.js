@@ -52,7 +52,6 @@ function adminLista() {
             li.appendChild(document.createTextNode(x + ": "));
             li.appendChild(document.createTextNode(texto[x] + ": "));
             ul.appendChild(li);
-
         }
         li = document.createElement("li");
     }
